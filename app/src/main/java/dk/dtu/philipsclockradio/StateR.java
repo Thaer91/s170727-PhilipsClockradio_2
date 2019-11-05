@@ -3,53 +3,19 @@ package dk.dtu.philipsclockradio;
 
 
 public class StateR extends StateAdapter {
-    static int frequency;
 
+    private static String radiomode = "FM";
 
-    // Start radio
-    @Override
-    public void onClick_Power(ContextClockradio context) {
-        context.setState(new StateR());
-    }
-
-
-    @Override
-    public void onLongClick_Power(ContextClockradio context) {
-        context.setState(new StateStandby(context.getTime()));
-    }
-
-    // Starter med en frequency på 1
     @Override
     public void onEnterState(ContextClockradio context) {
-        frequency = 1;
-        context.ui.toggleRadioPlaying();
-        context.ui.setDisplayText(""+ frequency);
+        if (radiomode == "FM"){
+            context.setState(new StateFm());
+        }else {
+            context.setState(new StateAm());
+        }
     }
 
-
-    @Override
-    public void onExitState(ContextClockradio context) {
-        context.ui.toggleRadioPlaying();
-
+    public void setRadiomode(String radiomode){
+        this.radiomode = radiomode;
     }
-
-    // Skift i frequency -
-    @Override
-    public void onClick_Hour(ContextClockradio context) {
-
-            frequency -= 1;
-            context.ui.setDisplayText(""+frequency);
-
-    }
-
-    // Skift i frequency +
-    @Override
-    public void onClick_Min(ContextClockradio context) {
-
-            frequency += 1;
-            context.ui.setDisplayText(""+frequency);
-
-    }
-
-
 }
