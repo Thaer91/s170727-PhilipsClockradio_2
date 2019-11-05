@@ -6,7 +6,7 @@ public class StateR extends StateAdapter {
     static int frequency;
 
 
-
+    // Start radio
     @Override
     public void onClick_Power(ContextClockradio context) {
         context.setState(new StateR());
@@ -15,20 +15,25 @@ public class StateR extends StateAdapter {
 
     @Override
     public void onLongClick_Power(ContextClockradio context) {
-        context.setState(new StateStandby(context.getTime())); // Return to standby with current time
+        context.setState(new StateStandby(context.getTime()));
     }
 
+    // Starter med en frequency på 1
     @Override
     public void onEnterState(ContextClockradio context) {
         frequency = 1;
         context.ui.toggleRadioPlaying();
         context.ui.setDisplayText(""+ frequency);
     }
+
+
     @Override
     public void onExitState(ContextClockradio context) {
         context.ui.toggleRadioPlaying();
 
     }
+
+    // Skift i frequency -
     @Override
     public void onClick_Hour(ContextClockradio context) {
 
@@ -36,6 +41,8 @@ public class StateR extends StateAdapter {
             context.ui.setDisplayText(""+frequency);
 
     }
+
+    // Skift i frequency +
     @Override
     public void onClick_Min(ContextClockradio context) {
 
