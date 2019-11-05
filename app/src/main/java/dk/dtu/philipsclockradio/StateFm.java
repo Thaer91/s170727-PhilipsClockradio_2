@@ -2,8 +2,9 @@ package dk.dtu.philipsclockradio;
 
 public class StateFm extends StateAdapter {
 
-    static float frequency;
+    static double frequency;
 
+    int [] kanalerFm = {1,2,3,4,5};
 
 
     @Override
@@ -12,9 +13,7 @@ public class StateFm extends StateAdapter {
         context.setState(new StateAm());
         StateR l = new StateR();
         l.setRadiomode("AM");
-
     }
-
 
     @Override
     public void onLongClick_Power(ContextClockradio context) {
@@ -24,7 +23,7 @@ public class StateFm extends StateAdapter {
     // Starter med en frequency på 90
     @Override
     public void onEnterState(ContextClockradio context) {
-        frequency = 90;
+        frequency = 70;
         context.ui.toggleRadioPlaying();
         context.ui.setDisplayText(""+ frequency);
 
@@ -40,7 +39,6 @@ public class StateFm extends StateAdapter {
     // Skift i frequency -
     @Override
     public void onClick_Hour(ContextClockradio context) {
-
         frequency -= 0.1;
         context.ui.setDisplayText(""+frequency);
 
@@ -49,11 +47,12 @@ public class StateFm extends StateAdapter {
     // Skift i frequency +
     @Override
     public void onClick_Min(ContextClockradio context) {
-
         frequency += 0.1;
         context.ui.setDisplayText(""+frequency);
 
     }
+
+
 
 
 

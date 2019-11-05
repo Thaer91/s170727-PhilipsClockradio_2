@@ -1,7 +1,7 @@
 package dk.dtu.philipsclockradio;
 
 public class StateAm extends StateAdapter {
-    static float frequency2;
+    static double frequency2;
 
     @Override
     public void onClick_Power(ContextClockradio context) {

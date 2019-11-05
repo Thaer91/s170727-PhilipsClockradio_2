@@ -95,8 +95,8 @@ public class MainUI extends AppCompatActivity implements OnTouchListener {
     // Denne metode sætter teksten på displayet (f.eks. klokken)
     public void setDisplayText(String text){
         String subtext = text;
-        if(text.length() > 5){
-            subtext = text.substring(0, 4);
+        if(text.length() > 6){
+            subtext = text.substring(0, 5);
         }
         timeTextView.setText(subtext);
     }
