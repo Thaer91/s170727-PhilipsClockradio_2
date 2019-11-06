@@ -1,12 +1,20 @@
 package dk.dtu.philipsclockradio;
 
+import java.util.ArrayList;
+
 public class StateFm extends StateAdapter {
 
-    static double frequency;
+    static int frequency;
 
-    int [] kanalerFm = {1,2,3,4,5};
-
-
+    // ArrayList over alle de kanaler vi har i FM
+    ArrayList < Kanaler> kanalerFmArrayList =  new ArrayList<>();
+    ArrayList <Kanaler> GemteFmKanaler = new ArrayList<>();
+    public StateFm() {
+        kanalerFmArrayList.add(new Kanaler("Kanal1", 72, false));
+        kanalerFmArrayList.add(new Kanaler("Kanal2",75,false));
+        kanalerFmArrayList.add(new Kanaler("Kanal3",79,false));
+    }
+    // skifter mellem fm og am
     @Override
     public void onClick_Power(ContextClockradio context) {
        // context.setState(new StateR());
@@ -20,41 +28,67 @@ public class StateFm extends StateAdapter {
         context.setState(new StateStandby(context.getTime()));
     }
 
-    // Starter med en frequency på 90
+    // Starter med en frequency på 70
     @Override
     public void onEnterState(ContextClockradio context) {
         frequency = 70;
         context.ui.toggleRadioPlaying();
-        context.ui.setDisplayText(""+ frequency);
-
-    }
-
-
-    @Override
-    public void onExitState(ContextClockradio context) {
-        context.ui.toggleRadioPlaying();
+        context.ui.setDisplayText("FM  "+ frequency);
 
     }
 
     // Skift i frequency -
     @Override
     public void onClick_Hour(ContextClockradio context) {
-        frequency -= 0.1;
-        context.ui.setDisplayText(""+frequency);
+        frequency -= 1;
+        for (int i = 0; i < kanalerFmArrayList.size() ; i++) {
+            if (kanalerFmArrayList.get(i).getKanalFreq() == frequency){
 
+                context.ui.setDisplayText(kanalerFmArrayList.get(i).getKanalname()+ " " +frequency);
+                break;
+            }
+            else {
+                context.ui.setDisplayText(""+frequency);
+
+            }
+        }
     }
 
     // Skift i frequency +
     @Override
     public void onClick_Min(ContextClockradio context) {
-        frequency += 0.1;
-        context.ui.setDisplayText(""+frequency);
+        frequency += 1;
+        for (int i = 0; i < kanalerFmArrayList.size() ; i++) {
+            if (kanalerFmArrayList.get(i).getKanalFreq()==frequency){
+
+                context.ui.setDisplayText(kanalerFmArrayList.get(i).getKanalname() +" "+ frequency);
+                break;
+            }
+            else {
+                context.ui.setDisplayText(""+frequency);
+
+            }
+        }
+    }
+    @Override
+    public void onLongClick_Preset(ContextClockradio context) {
+        for (int i = 0; i < kanalerFmArrayList.size(); i++) {
+            for (int j = 0; j < GemteFmKanaler.size(); j++) {
+                if (kanalerFmArrayList.get(i).getKanalFreq() == GemteFmKanaler.get(j).getKanalFreq()){
+                    //context.ui.setDisplayText("NEJ");
+                    break;
+                }
+            }
+            if (kanalerFmArrayList.get(i).getKanalFreq() == frequency){
+                GemteFmKanaler.add(kanalerFmArrayList.get(i));
+                //context.ui.setDisplayText("Yaa");
+
+                break;
+            }
+        }
+
 
     }
-
-
-
-
 
 }
 

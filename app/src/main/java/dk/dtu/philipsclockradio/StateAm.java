@@ -1,8 +1,20 @@
 package dk.dtu.philipsclockradio;
 
-public class StateAm extends StateAdapter {
-    static double frequency2;
+import java.util.ArrayList;
 
+public class StateAm extends StateAdapter {
+    static int frequency2;
+
+    // ArrayList over alle de kanaler vi har i AM
+    ArrayList <Kanaler> kanalerAmArrayList = new ArrayList<>();
+    ArrayList <Kanaler> GemteAmKanaler = new ArrayList<>();
+    public StateAm() {
+        kanalerAmArrayList.add(new Kanaler("Dm1",55,false));
+        kanalerAmArrayList.add(new Kanaler("Dm2",57,false));
+        kanalerAmArrayList.add(new Kanaler("Dm3",59,false));
+    }
+
+    // skifter mellem am og fm
     @Override
     public void onClick_Power(ContextClockradio context) {
         //context.setState(new StateR());
@@ -22,14 +34,7 @@ public class StateAm extends StateAdapter {
     public void onEnterState(ContextClockradio context) {
         frequency2 = 50;
         context.ui.toggleRadioPlaying();
-        context.ui.setDisplayText(""+ frequency2);
-
-    }
-
-
-    @Override
-    public void onExitState(ContextClockradio context) {
-        context.ui.toggleRadioPlaying();
+        context.ui.setDisplayText("AM  "+ frequency2);
 
     }
 
@@ -37,21 +42,52 @@ public class StateAm extends StateAdapter {
     @Override
     public void onClick_Hour(ContextClockradio context) {
 
-        frequency2 -= 0.1;
-        context.ui.setDisplayText(""+frequency2);
+        frequency2 -= 1;
+        for (int i = 0; i < kanalerAmArrayList.size() ; i++) {
+            if (kanalerAmArrayList.get(i).getKanalFreq() == frequency2){
 
+                context.ui.setDisplayText(kanalerAmArrayList.get(i).getKanalname() + " " + frequency2);
+                break;
+            }
+            else {
+                context.ui.setDisplayText(""+frequency2);
+            }
+        }
     }
 
     // Skift i frequency +
     @Override
     public void onClick_Min(ContextClockradio context) {
 
-        frequency2 += 0.1;
-        context.ui.setDisplayText(""+frequency2);
+        frequency2 += 1;
+        for (int i = 0; i < kanalerAmArrayList.size() ; i++) {
+            if (kanalerAmArrayList.get(i).getKanalFreq() == frequency2){
+
+                context.ui.setDisplayText(kanalerAmArrayList.get(i).getKanalname()+ " " + frequency2);
+                break;
+            }
+            else {
+                context.ui.setDisplayText(""+frequency2);
+            }
+        }
+    }
+    // Gemmer kanalerne inde i den anden ArrayList
+    @Override
+    public void onLongClick_Preset(ContextClockradio context) {
+        for (int i = 0; i < kanalerAmArrayList.size(); i++) {
+            for (int j = 0; j < GemteAmKanaler.size(); j++) {
+                if (kanalerAmArrayList.get(i).getKanalFreq() == GemteAmKanaler.get(j).getKanalFreq()){
+                    break;
+                }
+            }
+            if (kanalerAmArrayList.get(i).getKanalFreq() == frequency2){
+                GemteAmKanaler.add(kanalerAmArrayList.get(i));
+                break;
+            }
+        }
+
 
     }
-
-
 }
 
 
