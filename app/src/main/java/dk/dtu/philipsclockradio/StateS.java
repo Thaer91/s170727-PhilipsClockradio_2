@@ -15,17 +15,12 @@ public class StateS extends StateAdapter {
         timer = new CountDownTimer(5000,1000) {
             @Override
             public void onTick(long l) {
-                // l er i ms => vi dividere med 100 for at få det i sec.
-                //context.ui.setDisplayText(Long.toString(l/1000));
-
 
             }
-
             @Override
             public void onFinish() {
                 context.ui.setDisplayText("5 Sec er gået");
                 context.setState(new StateStandby(context.getTime()));
-
             }
         };
     }
@@ -35,8 +30,6 @@ public class StateS extends StateAdapter {
         context.ui.turnOffLED(3);
 
     }
-    //"if idle for 5 sec then change state"
-
 
     @Override
     public void onClick_Sleep(ContextClockradio context) {
