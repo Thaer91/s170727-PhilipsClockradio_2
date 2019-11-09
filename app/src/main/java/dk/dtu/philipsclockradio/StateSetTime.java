@@ -22,7 +22,6 @@ public class StateSetTime extends StateAdapter {
 
     @Override
     public void onClick_Hour(ContextClockradio context) {
-        //Gets current timestamp (Date)
         mTime.setTime(mTime.getTime() + 3600000);
         context.setTime(mTime);
         context.updateDisplayTime();
@@ -30,7 +29,6 @@ public class StateSetTime extends StateAdapter {
 
     @Override
     public void onClick_Min(ContextClockradio context) {
-        //Gets current timestamp (Date)
         mTime.setTime(mTime.getTime() + 60000);
         context.setTime(mTime);
         context.updateDisplayTime();

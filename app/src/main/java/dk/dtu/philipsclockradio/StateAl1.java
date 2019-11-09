@@ -7,11 +7,10 @@ import java.util.Date;
 public class StateAl1 extends StateAdapter {
 
     long Time;
+    int antalKlik = 0;
     Alarm AL1;
     Date alarmTid;
-    int antalKlik = 0;
     CountDownTimer cT;
-
 
 
     @Override
@@ -26,9 +25,11 @@ public class StateAl1 extends StateAdapter {
             public void onTick(long l) {
                 if (antalKlik == 1){
                     context.ui.turnOnLED(2);
+
                 } else if (antalKlik == 2){
                     context.ui.turnOffLED(2);
                     context.ui.turnOnLED(1);
+
                 } else if (antalKlik == 3){
                     context.ui.turnOffLED(1);
                     antalKlik = 0;
@@ -39,8 +40,8 @@ public class StateAl1 extends StateAdapter {
             public void onFinish() {
 
                 if (antalKlik == 1){
-
                     context.setState(new StateAlRinger());
+
                 } else if (antalKlik == 2){
                     context.setState(new StateR() );
                     context.ui.turnOffTextBlink();
@@ -54,14 +55,6 @@ public class StateAl1 extends StateAdapter {
             }
         };
 
-
-
-
-    }
-
-    @Override
-    public void onExitState(ContextClockradio context) {
-
     }
 
     @Override
@@ -72,23 +65,23 @@ public class StateAl1 extends StateAdapter {
         cT.start();
         }
 
-
-
+    // Øger med en 3600000 ms som er en time
     @Override
     public void onClick_Hour(ContextClockradio context) {
         long timer = AL1.getAlarm().getTime() + 3600000;
         AL1.getAlarm().setTime(timer);
-        String tezxt = AL1.getAlarm().toString().substring(11,16);
-        context.ui.setDisplayText(tezxt);
+        String text = AL1.getAlarm().toString().substring(11,16);
+        context.ui.setDisplayText(text);
 
     }
 
+    // Øger med en 60000 ms som er et minut
     @Override
     public void onClick_Min(ContextClockradio context) {
         long timer1 = AL1.getAlarm().getTime() + 60000;
         AL1.getAlarm().setTime(timer1);
-        String text = AL1.getAlarm().toString().substring(11,16);
-        context.ui.setDisplayText(text);
+        String text1 = AL1.getAlarm().toString().substring(11,16);
+        context.ui.setDisplayText(text1);
 
     }
 }

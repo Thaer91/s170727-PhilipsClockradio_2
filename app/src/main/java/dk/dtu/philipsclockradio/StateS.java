@@ -19,7 +19,6 @@ public class StateS extends StateAdapter {
             }
             @Override
             public void onFinish() {
-                context.ui.setDisplayText("5 Sec er gået");
                 context.setState(new StateStandby(context.getTime()));
             }
         };
@@ -27,10 +26,11 @@ public class StateS extends StateAdapter {
 
     @Override
     public void onExitState(ContextClockradio context) {
-        context.ui.turnOffLED(3);
+       context.ui.turnOffLED(3);
 
     }
-
+    // Kører CountDownTimeren og Tjekker om hvor mange gang man trykker på Sleep knappen, og så giver den bestemte displayet
+    // Når der går 5 sec siden man har tryklket sidste tryk bliver brugeren tilbagesendt til Standby
     @Override
     public void onClick_Sleep(ContextClockradio context) {
 
@@ -53,6 +53,7 @@ public class StateS extends StateAdapter {
             antalKlik++;
         } else if (antalKlik == 5){
             context.ui.setDisplayText("OFF");
+           // context.ui.turnOffLED(3);
             antalKlik = 0;
         }
         timer.start();

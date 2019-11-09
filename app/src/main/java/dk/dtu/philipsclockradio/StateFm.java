@@ -70,6 +70,7 @@ public class StateFm extends StateAdapter {
             }
         }
     }
+    // Tjekker hvis der er en kanal er inde i kanalerFmArrayList, så gemmer den i Gemtekanaler
     @Override
     public void onLongClick_Preset(ContextClockradio context) {
         for (int i = 0; i < kanalerFmArrayList.size(); i++) {
