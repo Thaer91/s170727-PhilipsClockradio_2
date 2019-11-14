@@ -1,10 +1,13 @@
 package dk.dtu.philipsclockradio;
 
+import android.os.CountDownTimer;
+
 import java.util.ArrayList;
 
 public class StateFm extends StateAdapter {
 
     static int frequency;
+    CountDownTimer cTAlarm;
 
     // ArrayList over alle de kanaler vi har i FM
     ArrayList < Kanaler> kanalerFmArrayList =  new ArrayList<>();
@@ -30,10 +33,23 @@ public class StateFm extends StateAdapter {
 
     // Starter med en frequency på 70
     @Override
-    public void onEnterState(ContextClockradio context) {
+    public void onEnterState(final ContextClockradio context) {
         frequency = 70;
         context.ui.toggleRadioPlaying();
         context.ui.setDisplayText("FM  "+ frequency);
+
+        cTAlarm = new CountDownTimer(450000,1000) {
+            @Override
+            public void onTick(long l) {
+                context.ui.turnOffTextBlink();
+                context.setState(new StateStandby(context.getTime()));
+            }
+            @Override
+            public void onFinish() {
+                context.setState(new StateAlRinger());
+
+            }
+        };
 
 
 
@@ -97,18 +113,23 @@ public class StateFm extends StateAdapter {
     public void onClick_AL1(ContextClockradio context) {
         context.ui.turnOffTextBlink();
         context.ui.turnOffLED(1);
+        context.ui.turnOffLED(4);
         context.setState(new StateStandby(context.getTime()));
     }
     @Override
     public void onClick_AL2(ContextClockradio context) {
         context.ui.turnOffTextBlink();
         context.ui.turnOffLED(4);
+        context.ui.turnOffLED(1);
         context.setState(new StateStandby(context.getTime()));
 
     }
 
     @Override
     public void onClick_Snooze(ContextClockradio context) {
+        cTAlarm.cancel();
+
+        cTAlarm.start();
 
     }
 }
