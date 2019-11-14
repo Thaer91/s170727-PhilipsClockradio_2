@@ -10,7 +10,7 @@ public class StateAl2 extends StateAdapter {
     Alarm AL2;
     Date alarmTid;
     int antalKlik;
-    CountDownTimer cT;
+    CountDownTimer cT2;
 
     //S
     @Override
@@ -20,16 +20,16 @@ public class StateAl2 extends StateAdapter {
         AL2 = new Alarm(alarmTid.getTime(), alarmTid);
         context.updateDisplayTime();
 
-        cT = new CountDownTimer(5000, 1000) {
+        cT2 = new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long l) {
                 if (antalKlik == 1){
-                    context.ui.turnOnLED(2);
+                    context.ui.turnOnLED(5);
                 } else if (antalKlik == 2){
-                    context.ui.turnOffLED(2);
-                    context.ui.turnOnLED(1);
+                    context.ui.turnOffLED(5);
+                    context.ui.turnOnLED(4);
                 } else if (antalKlik == 3){
-                    context.ui.turnOffLED(1);
+                    context.ui.turnOffLED(4);
                     antalKlik = 0;
                 }
             }
@@ -42,7 +42,7 @@ public class StateAl2 extends StateAdapter {
                     context.setState(new StateAlRinger());
                 } else if (antalKlik == 2){
                     context.setState(new StateR() );
-                    context.ui.turnOffTextBlink();
+                   // context.ui.turnOffTextBlink();
 
                 } else if (antalKlik == 3){
                     context.ui.turnOffTextBlink();
@@ -56,10 +56,10 @@ public class StateAl2 extends StateAdapter {
 
     @Override
     public void onClick_AL2(final ContextClockradio context) {
-        cT.cancel();
+        cT2.cancel();
         antalKlik++;
 
-        cT.start();
+        cT2.start();
 
     }
     // Øger med en 3600000 ms som er en time

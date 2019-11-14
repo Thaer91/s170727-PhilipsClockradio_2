@@ -13,6 +13,7 @@ public class StateR extends StateAdapter {
         }else {
             context.setState(new StateAm());
         }
+
     }
 
     public void setRadiomode(String radiomode){

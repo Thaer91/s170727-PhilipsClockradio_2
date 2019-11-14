@@ -36,6 +36,14 @@ public class StateAlRinger extends StateAdapter {
     }
 
     @Override
+    public void onClick_AL2(ContextClockradio context) {
+        context.ui.turnOffTextBlink();
+        context.ui.turnOffLED(5);
+        context.setState(new StateStandby(context.getTime()));
+
+    }
+
+    @Override
     public void onClick_Snooze(final ContextClockradio context) {
 
         cTAlarm.cancel();

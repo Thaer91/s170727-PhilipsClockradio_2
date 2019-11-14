@@ -88,6 +88,19 @@ public class StateAm extends StateAdapter {
 
 
     }
+    @Override
+    public void onClick_AL1(ContextClockradio context) {
+        context.ui.turnOffTextBlink();
+        context.ui.turnOffLED(1);
+        context.setState(new StateStandby(context.getTime()));
+    }
+    @Override
+    public void onClick_AL2(ContextClockradio context) {
+        context.ui.turnOffTextBlink();
+        context.ui.turnOffLED(4);
+        context.setState(new StateStandby(context.getTime()));
+
+    }
 }
 
 
